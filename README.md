@@ -11,3 +11,7 @@
 [Documentación React](https://es.react.dev/)
 
 [Wiki React](https://www.reactjs.wiki/)
+
+## Estado
+
+La actualización de estado en React es asíncrona
