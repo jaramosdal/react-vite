@@ -47,3 +47,11 @@ Ejecuta un efecto según las dependencias que tenga definidas:
 - [] -> solo se ejecuta una vez cuando se monta el componente
 - [dep] -> se ejecuta cuando cambia "dep" y cuando se monta el componente
 - undefined -> se ejecuta cada vez que se renderiza el componente
+
+# Despliegue
+
+## Plataformas recomendadas por Midudev
+
+- [Vercel](https://vercel.com/)
+- [Netlify](https://www.netlify.com/)
+- [Railway](https://railway.app/)
