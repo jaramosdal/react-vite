@@ -10,3 +10,9 @@ APIs:
 - Recupera un hecho aleatorio de gatos de la primera API.
 - Recuperar la primera palabra del hecho.
 - Muestra una imagen de un gato con la primera palabra.
+
+Test unitarios con:
+npm init playwright@latest
+
+Para correr los tests:
+npx playwright test
