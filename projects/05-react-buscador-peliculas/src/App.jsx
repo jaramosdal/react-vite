@@ -1,9 +1,20 @@
 import "./App.css";
+import responseMovies from "./mocks/with-results.json";
+import { Movies } from "./components/Movies";
 
 // http://www.omdbapi.com/?apikey=[yourkey]&
 // ba413d48
 
 function App() {
+  const movies = responseMovies.Search;
+
+  const mappedMovies = movies?.map((movie) => ({
+    id: movie.imdbID,
+    title: movie.Title,
+    year: movie.Year,
+    poster: movie.Poster,
+  }));
+
   return (
     <div className="page">
       <header>
@@ -13,7 +24,9 @@ function App() {
           <button type="submit">Buscar</button>
         </form>
       </header>
-      <main>Aquí irán los resultados</main>
+      <main>
+        <Movies movies={mappedMovies} />
+      </main>
     </div>
   );
 }
