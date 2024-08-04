@@ -48,6 +48,12 @@ Ejecuta un efecto según las dependencias que tenga definidas:
 - [dep] -> se ejecuta cuando cambia "dep" y cuando se monta el componente
 - undefined -> se ejecuta cada vez que se renderiza el componente
 
+## useRef
+
+Permite crear una referencia mutable que persiste durante todo el cliclo de vida del componente (su valor no se reinicia).
+Cuando cambia, NO VUELVE A RENDERIZAR el componente.
+También es útil para guardar referencias de elementos del DOM.
+
 # Despliegue
 
 ## Plataformas recomendadas por Midudev
