@@ -8,13 +8,31 @@ import { useMovies } from "./hooks/useMovies";
 
 function App() {
   const { movies } = useMovies();
+  const inputRef = useRef(); // NO ABUSAR DE ESTO
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    // MEJOR SIN USAR useRef()
+    // const inputElement = inputRef.current;
+    // const value = inputElement.value;
+    // console.log(value);
+
+    const fields = new FormData(event.target);
+    const query = fields.get("query");
+    console.log(query);
+  };
 
   return (
     <div className="page">
       <header>
         <h3>Buscador de películas</h3>
-        <form className="form">
-          <input placeholder="Avengers, Star Wars, The Matrix..." />
+        <form className="form" onSubmit={handleSubmit}>
+          <input
+            name="query"
+            ref={inputRef}
+            placeholder="Avengers, Star Wars, The Matrix..."
+          />
           <button type="submit">Buscar</button>
         </form>
       </header>
