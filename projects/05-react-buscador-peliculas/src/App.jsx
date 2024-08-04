@@ -1,19 +1,13 @@
 import "./App.css";
-import responseMovies from "./mocks/with-results.json";
+import { useRef } from "react";
 import { Movies } from "./components/Movies";
+import { useMovies } from "./hooks/useMovies";
 
 // http://www.omdbapi.com/?apikey=[yourkey]&
 // ba413d48
 
 function App() {
-  const movies = responseMovies.Search;
-
-  const mappedMovies = movies?.map((movie) => ({
-    id: movie.imdbID,
-    title: movie.Title,
-    year: movie.Year,
-    poster: movie.Poster,
-  }));
+  const { movies } = useMovies();
 
   return (
     <div className="page">
@@ -25,7 +19,7 @@ function App() {
         </form>
       </header>
       <main>
-        <Movies movies={mappedMovies} />
+        <Movies movies={movies} />
       </main>
     </div>
   );
