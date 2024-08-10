@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import "./App.css";
 // import { useRef } from "react";
 import { Movies } from "./components/Movies";
@@ -7,29 +7,55 @@ import { useMovies } from "./hooks/useMovies";
 // http://www.omdbapi.com/?apikey=[yourkey]&
 // ba413d48
 
+function useSearch() {
+  const [search, updateSearch] = useState("");
+  const [error, setError] = useState(null);
+  const isFirstInput = useRef(true);
+
+  useEffect(() => {
+    if (isFirstInput.current) {
+      isFirstInput.current = search === "";
+      return;
+    }
+
+    if (search === "") {
+      setError("No se puede buscar una película vacía");
+      return;
+    }
+
+    if (search.match(/^\d+$/)) {
+      setError("No se puede buscar una película con un número");
+      return;
+    }
+
+    if (search.length < 3) {
+      setError("La búsqueda debe tener al menos 3 caracteres");
+      return;
+    }
+
+    setError(null);
+  }, [search]);
+
+  return {
+    search,
+    updateSearch,
+    error,
+  };
+}
+
 function App() {
   const { movies } = useMovies();
-  const [query, setQuery] = useState("");
+  const { search, updateSearch, error } = useSearch("");
+
   // const inputRef = useRef(); // NO ABUSAR DE ESTO
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    // SOLO ES UN EJEMPLO, MEJOR NO USAR useRef()
-    // const inputElement = inputRef.current;
-    // const value = inputElement.value;
-    // console.log(value);
-
-    // const fields = new FormData(event.target);
-    // const query = fields.get("query");
-    // console.log(query);
-
-    // const { query } = Object.entries(new window.FormData(event.target));
-    console.log(query);
+    console.log({ search });
   };
 
   const handleChange = (event) => {
-    setQuery(event.target.value);
+    updateSearch(event.target.value);
   };
 
   return (
@@ -38,14 +64,23 @@ function App() {
         <h3>Buscador de películas</h3>
         <form className="form" onSubmit={handleSubmit}>
           <input
-            name="query"
+            style={{
+              border: "1px solid transparent",
+              borderColor: error ? "red" : "transparent",
+            }}
+            name="search"
             // ref={inputRef}
             placeholder="Avengers, Star Wars, The Matrix..."
-            value={query}
+            value={search}
             onChange={handleChange}
           />
           <button type="submit">Buscar</button>
         </form>
+        {error && (
+          <p style={{ color: "red" }} className="error">
+            {error}
+          </p>
+        )}
       </header>
       <main>
         <Movies movies={movies} />

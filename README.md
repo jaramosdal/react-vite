@@ -50,9 +50,17 @@ Ejecuta un efecto según las dependencias que tenga definidas:
 
 ## useRef
 
-Permite crear una referencia mutable que persiste durante todo el cliclo de vida del componente (su valor no se reinicia).
+Permite crear una referencia mutable que persiste durante todo el cliclo de vida del componente (persiste entre renders, su valor no se reinicia).
 Cuando cambia, NO VUELVE A RENDERIZAR el componente.
 También es útil para guardar referencias de elementos del DOM.
+
+# Custom Hooks
+
+Sirven para extraer la lógica de un componente:
+
+- Gestión del estado
+- useEffect
+- Validaciones
 
 # Despliegue
 
