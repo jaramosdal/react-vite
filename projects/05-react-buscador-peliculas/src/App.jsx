@@ -44,14 +44,14 @@ function useSearch() {
 }
 
 function App() {
-  const { movies } = useMovies();
   const { search, updateSearch, error } = useSearch("");
+  const { movies, loading, getMovies } = useMovies({ search });
 
   // const inputRef = useRef(); // NO ABUSAR DE ESTO
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log({ search });
+    getMovies();
   };
 
   const handleChange = (event) => {
@@ -82,9 +82,7 @@ function App() {
           </p>
         )}
       </header>
-      <main>
-        <Movies movies={movies} />
-      </main>
+      <main>{loading ? <p>Cargando...</p> : <Movies movies={movies} />}</main>
     </div>
   );
 }
