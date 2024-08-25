@@ -54,6 +54,14 @@ Permite crear una referencia mutable que persiste durante todo el cliclo de vida
 Cuando cambia, NO VUELVE A RENDERIZAR el componente.
 También es útil para guardar referencias de elementos del DOM.
 
+## useMemo
+
+Memoriza un valor, para no tener que volverlo a calcular, dependiendo de unas dependencias.
+
+## useCallback
+
+Es lo mismo que el useMemo, pero pensado para funciones. Se puede usar useMemo, de hecho useCallback por debajo usa useMemo, es sólo para simplificar sintáxis (syntactic sugar).
+
 # Custom Hooks
 
 Sirven para extraer la lógica de un componente:

@@ -1,11 +1,9 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import "./App.css";
 // import { useRef } from "react";
 import { Movies } from "./components/Movies";
 import { useMovies } from "./hooks/useMovies";
-
-// http://www.omdbapi.com/?apikey=[yourkey]&
-// ba413d48
+import debounce from "just-debounce-it";
 
 function useSearch() {
   const [search, updateSearch] = useState("");
@@ -44,18 +42,33 @@ function useSearch() {
 }
 
 function App() {
+  const [sort, setSort] = useState(false);
   const { search, updateSearch, error } = useSearch("");
-  const { movies, loading, getMovies } = useMovies({ search });
+  const { movies, loading, getMovies } = useMovies({ search, sort });
 
   // const inputRef = useRef(); // NO ABUSAR DE ESTO
 
+  const debauncedGetMovies = useCallback(
+    debounce((search) => {
+      console.log("search", search);
+      getMovies({ search });
+    }, 300),
+    [getMovies]
+  );
+
+  const handleSort = () => {
+    setSort(!sort);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    getMovies();
+    getMovies({ search });
   };
 
   const handleChange = (event) => {
-    updateSearch(event.target.value);
+    const newSearch = event.target.value;
+    updateSearch(newSearch);
+    debauncedGetMovies(newSearch);
   };
 
   return (
@@ -74,6 +87,7 @@ function App() {
             value={search}
             onChange={handleChange}
           />
+          <input type="checkbox" onChange={handleSort} checked={sort} />
           <button type="submit">Buscar</button>
         </form>
         {error && (
