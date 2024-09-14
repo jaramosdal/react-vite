@@ -62,6 +62,16 @@ Memoriza un valor, para no tener que volverlo a calcular, dependiendo de unas de
 
 Es lo mismo que el useMemo, pero pensado para funciones. Se puede usar useMemo, de hecho useCallback por debajo usa useMemo, es sólo para simplificar sintáxis (syntactic sugar).
 
+## useContext
+
+Algo separado de nuestro árbol de commponentes y que puedes leer de forma separada. Se realiza en 3 pasos:
+
+- Crear el contexto
+- Proveer el contexto
+- Consumir el contexto
+
+![Ejemplo](/images/filters.png)
+
 # Custom Hooks
 
 Sirven para extraer la lógica de un componente:
@@ -69,6 +79,42 @@ Sirven para extraer la lógica de un componente:
 - Gestión del estado
 - useEffect
 - Validaciones
+
+Código de ejemplo:
+
+    src\context\filters.jsx
+    import { createContext, useState } from "react";
+
+    // Este es el que tenemos que consumir
+    export const FiltersContext = createContext();
+
+    // Este es el que nos provee de acceso al contexto
+    export function FiltersProvider({ children }) {
+        const [filters, setFilters] = useState({
+            category: "all",
+            minPrice: 250,
+        });
+
+        return (
+            <FiltersContext.Provider
+                value={{
+                    filters,
+                    setFilters,
+                }}
+            >
+                {children}
+            </FiltersContext.Provider>
+        );
+    }
+
+    src\main.jsx
+    createRoot(document.getElementById("root")).render(
+        <StrictMode>
+            <FiltersProvider>
+                <App />
+            </FiltersProvider>
+        </StrictMode>
+    );
 
 # Despliegue
 
