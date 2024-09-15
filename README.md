@@ -74,6 +74,7 @@ Algo separado de nuestro árbol de commponentes y que puedes leer de forma separ
 
 # Custom Hooks
 
+Es un Singleton, y sirve como una especie de inyector de dependencias.
 Sirven para extraer la lógica de un componente:
 
 - Gestión del estado
@@ -115,6 +116,8 @@ Código de ejemplo:
             </FiltersProvider>
         </StrictMode>
     );
+
+Si lo usamos para estados globales, tenemos que procurar que sean estados pequeños o que cambien con muy poca frecuencia.
 
 # Despliegue
 
