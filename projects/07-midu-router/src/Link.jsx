@@ -20,6 +20,7 @@ export function Link({ target, to, ...props }) {
     if (isMainClick && isManageable && !isModifiedEvent) {
       event.preventDefault();
       navigate(to);
+      window.scrollTo(0, 0);
     }
   };
 
