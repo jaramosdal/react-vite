@@ -1,6 +1,9 @@
+import { lazy, Suspense } from "react";
 import "./App.css";
-import HomePage from "./pages/Home";
-import AboutPage from "./pages/About";
+// import HomePage from "./pages/Home"; // import estático
+// import AboutPage from "./pages/About"; // import estático
+const LazyAboutPage = lazy(() => import("./pages/About")); // import dinámico
+const LazyHomePage = lazy(() => import("./pages/Home")); // import dinámico
 import Page404 from "./pages/404";
 import SearchPage from "./pages/SearchPage";
 
@@ -17,10 +20,12 @@ const appRoutes = [
 function App() {
   return (
     <main>
-      <Router routes={appRoutes} defaultComponent={Page404}>
-        <Route path="/" Component={HomePage} />
-        <Route path="/about" Component={AboutPage} />
-      </Router>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Router routes={appRoutes} defaultComponent={Page404}>
+          <Route path="/" Component={LazyHomePage} />
+          <Route path="/about" Component={LazyAboutPage} />
+        </Router>
+      </Suspense>
     </main>
   );
 }
