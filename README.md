@@ -126,3 +126,9 @@ Si lo usamos para estados globales, tenemos que procurar que sean estados peque�
 - [Vercel](https://vercel.com/)
 - [Netlify](https://www.netlify.com/)
 - [Railway](https://railway.app/)
+
+# packages.json
+
+## peerDependencies
+
+Aquí van aquellas dependencias que no instalará nuestra librería como tal, pero sí que allá donde se utilice la librería debe tener esas dependencias instaladas.
