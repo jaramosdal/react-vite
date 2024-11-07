@@ -14,10 +14,11 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "prepare": "swc ./src/*.jsx -d lib && rm lib/App.js lib/main.js lib/Router.test.js && cp src/*.js lib",
+    "prepare": "npm run test && swc ./src/*.jsx -d lib && rm lib/App.js lib/main.js lib/Router.test.js && cp src/*.js lib",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "vitest"
+    "test": "vitest run",
+    "test:ui": "vitest --ui"
   },
   "dependencies": {
     "path-to-regexp": "8.2.0"
